@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Header from "@/components/Header";
 import AbsenceFormInput, { type AbsenceRecord } from "@/components/AbsenceFormInput";
 import PreviewModal from "@/components/PreviewModal";
@@ -12,7 +12,23 @@ export default function Home() {
   const [previewRecord, setPreviewRecord] = useState<AbsenceRecord | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [printRecords, setPrintRecords] = useState<AbsenceRecord[]>([]);
+  const [shouldPrint, setShouldPrint] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (shouldPrint && printRecords.length > 0) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          window.print();
+          toast({
+            title: "출력 요청 완료",
+            description: "프린터 대화상자가 열렸습니다.",
+          });
+          setShouldPrint(false);
+        });
+      });
+    }
+  }, [shouldPrint, printRecords, toast]);
 
   const handleAddRecord = () => {
     const today = new Date().toISOString().split("T")[0];
@@ -72,15 +88,9 @@ export default function Home() {
   const handlePrintSingle = () => {
     if (previewRecord) {
       if (!validateRecords([previewRecord])) return;
-      setPrintRecords([previewRecord]);
       setIsPreviewOpen(false);
-      setTimeout(() => {
-        window.print();
-        toast({
-          title: "출력 요청 완료",
-          description: "프린터 대화상자가 열렸습니다.",
-        });
-      }, 100);
+      setPrintRecords([previewRecord]);
+      setShouldPrint(true);
     }
   };
 
@@ -96,18 +106,12 @@ export default function Home() {
 
     if (!validateRecords(records)) return;
 
-    setPrintRecords(records);
     toast({
       title: "출력 준비 중",
       description: `총 ${records.length}건의 결석계를 출력합니다.`,
     });
-    setTimeout(() => {
-      window.print();
-      toast({
-        title: "출력 요청 완료",
-        description: "프린터 대화상자가 열렸습니다.",
-      });
-    }, 100);
+    setPrintRecords(records);
+    setShouldPrint(true);
   };
 
   return (
