@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Trash2, Eye, Printer } from "lucide-react";
+import DatePicker from "./DatePicker";
 
 export interface AbsenceRecord {
   id: string;
@@ -166,20 +166,18 @@ export default function AbsenceFormInput({
                       />
                     </TableCell>
                     <TableCell>
-                      <input
-                        type="date"
+                      <DatePicker
                         value={record.startDate}
-                        onChange={(e) => handleDateChange(record.id, "startDate", e.target.value)}
-                        className="flex h-9 w-full min-w-[140px] rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                        onChange={(value) => handleDateChange(record.id, "startDate", value)}
+                        placeholder="시작일"
                         data-testid={`input-startDate-${record.id}`}
                       />
                     </TableCell>
                     <TableCell>
-                      <input
-                        type="date"
+                      <DatePicker
                         value={record.endDate}
-                        onChange={(e) => handleDateChange(record.id, "endDate", e.target.value)}
-                        className="flex h-9 w-full min-w-[140px] rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                        onChange={(value) => handleDateChange(record.id, "endDate", value)}
+                        placeholder="종료일"
                         data-testid={`input-endDate-${record.id}`}
                       />
                     </TableCell>
@@ -193,11 +191,10 @@ export default function AbsenceFormInput({
                       />
                     </TableCell>
                     <TableCell>
-                      <input
-                        type="date"
+                      <DatePicker
                         value={record.submitDate}
-                        onChange={(e) => onUpdateRecord(record.id, "submitDate", e.target.value)}
-                        className="flex h-9 w-full min-w-[140px] rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                        onChange={(value) => onUpdateRecord(record.id, "submitDate", value)}
+                        placeholder="제출일"
                         data-testid={`input-submitDate-${record.id}`}
                       />
                     </TableCell>
