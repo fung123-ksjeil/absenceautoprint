@@ -166,20 +166,20 @@ export default function AbsenceFormInput({
                       />
                     </TableCell>
                     <TableCell>
-                      <Input
+                      <input
                         type="date"
                         value={record.startDate}
                         onChange={(e) => handleDateChange(record.id, "startDate", e.target.value)}
-                        className="min-w-[130px]"
+                        className="flex h-9 w-full min-w-[140px] rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                         data-testid={`input-startDate-${record.id}`}
                       />
                     </TableCell>
                     <TableCell>
-                      <Input
+                      <input
                         type="date"
                         value={record.endDate}
                         onChange={(e) => handleDateChange(record.id, "endDate", e.target.value)}
-                        className="min-w-[130px]"
+                        className="flex h-9 w-full min-w-[140px] rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                         data-testid={`input-endDate-${record.id}`}
                       />
                     </TableCell>
@@ -193,11 +193,11 @@ export default function AbsenceFormInput({
                       />
                     </TableCell>
                     <TableCell>
-                      <Input
+                      <input
                         type="date"
                         value={record.submitDate}
                         onChange={(e) => onUpdateRecord(record.id, "submitDate", e.target.value)}
-                        className="min-w-[130px]"
+                        className="flex h-9 w-full min-w-[140px] rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                         data-testid={`input-submitDate-${record.id}`}
                       />
                     </TableCell>
