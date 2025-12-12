@@ -1,4 +1,5 @@
 import type { AbsenceRecord } from "./AbsenceFormInput";
+import stampImage from "@assets/삽입이미지_1765541637616.png";
 
 interface SpecialAbsenceFormProps {
   record: AbsenceRecord;
@@ -21,22 +22,7 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
       </div>
 
       <div className="flex justify-end mb-4">
-        <div className="border border-black">
-          <table className="text-xs">
-            <tbody>
-              <tr>
-                <td className="border border-black px-2 py-1 text-center">담임</td>
-                <td className="border border-black px-2 py-1 text-center">학년부장</td>
-                <td className="border border-black px-2 py-1 text-center">교감</td>
-              </tr>
-              <tr>
-                <td className="border border-black px-4 py-3 h-12"></td>
-                <td className="border border-black px-4 py-3 h-12"></td>
-                <td className="border border-black px-4 py-3 h-12"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <img src={stampImage} alt="결재란" className="h-auto" style={{ maxWidth: "150px" }} />
       </div>
 
       <div className="text-right mb-6 pr-8">
