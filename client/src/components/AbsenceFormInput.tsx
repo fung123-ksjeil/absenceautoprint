@@ -74,8 +74,8 @@ function DatePickerButton({
           className="w-full justify-start text-left font-normal"
           data-testid={testId}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          {value ? format(new Date(value), "yyyy-MM-dd") : placeholder}
+          <CalendarIcon className="mr-2 h-4 w-4 shrink-0" />
+          <span className="truncate">{value ? format(new Date(value), "yyyy-MM-dd") : placeholder}</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
@@ -125,138 +125,157 @@ export default function AbsenceFormInput({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <div className="space-y-3">
           {records.length === 0 ? (
             <div className="text-center text-muted-foreground py-8 border rounded-md">
               결석 정보를 입력해주세요. "행 추가" 버튼을 클릭하여 시작하세요.
             </div>
           ) : (
-            records.map((record, index) => (
-              <div 
-                key={record.id} 
-                className="border rounded-md p-4 space-y-4"
-                data-testid={`row-record-${record.id}`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-muted-foreground">#{index + 1}</span>
-                  <div className="flex items-center gap-1">
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => onPreview(record)}
-                      data-testid={`button-preview-${record.id}`}
-                    >
+            <>
+              <div className="hidden xl:grid xl:grid-cols-[3rem_1fr_1fr_1fr_1fr_1fr_1fr_4rem_1fr_1fr_5rem] gap-3 px-3 py-2 bg-muted/50 rounded-md text-sm text-muted-foreground font-medium">
+                <div>#</div>
+                <div>학번</div>
+                <div>성명</div>
+                <div>사유코드</div>
+                <div>사유내용</div>
+                <div>시작일</div>
+                <div>종료일</div>
+                <div>일수</div>
+                <div>제출일</div>
+                <div>담임</div>
+                <div></div>
+              </div>
+              {records.map((record, index) => (
+                <div 
+                  key={record.id} 
+                  className="border rounded-md p-3 xl:p-0 xl:border-0 xl:py-2 xl:px-3 xl:hover:bg-muted/30 xl:grid xl:grid-cols-[3rem_1fr_1fr_1fr_1fr_1fr_1fr_4rem_1fr_1fr_5rem] gap-3 items-center"
+                  data-testid={`row-record-${record.id}`}
+                >
+                  <div className="hidden xl:flex items-center text-sm text-muted-foreground font-medium">
+                    {index + 1}
+                  </div>
+                  
+                  <div className="xl:hidden flex items-center justify-between mb-3">
+                    <span className="text-sm font-medium text-muted-foreground">#{index + 1}</span>
+                    <div className="flex items-center gap-1">
+                      <Button size="icon" variant="ghost" onClick={() => onPreview(record)} data-testid={`button-preview-${record.id}`}>
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button size="icon" variant="ghost" onClick={() => onDeleteRecord(record.id)} data-testid={`button-delete-${record.id}`}>
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-4 xl:contents gap-3 mb-3 xl:mb-0">
+                    <div className="xl:contents">
+                      <label className="text-xs text-muted-foreground mb-1 block xl:hidden">학번</label>
+                      <Input
+                        value={record.studentId}
+                        onChange={(e) => onUpdateRecord(record.id, "studentId", e.target.value)}
+                        placeholder="학번"
+                        data-testid={`input-studentId-${record.id}`}
+                      />
+                    </div>
+                    <div className="xl:contents">
+                      <label className="text-xs text-muted-foreground mb-1 block xl:hidden">성명</label>
+                      <Input
+                        value={record.studentName}
+                        onChange={(e) => onUpdateRecord(record.id, "studentName", e.target.value)}
+                        placeholder="성명"
+                        data-testid={`input-studentName-${record.id}`}
+                      />
+                    </div>
+                    <div className="xl:contents">
+                      <label className="text-xs text-muted-foreground mb-1 block xl:hidden">사유코드</label>
+                      <Select
+                        value={record.reasonCode}
+                        onValueChange={(value) => onUpdateRecord(record.id, "reasonCode", value)}
+                      >
+                        <SelectTrigger data-testid={`select-reasonCode-${record.id}`}>
+                          <SelectValue placeholder="사유" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {REASON_CODES.map((code) => (
+                            <SelectItem key={code.value} value={code.value}>
+                              {code.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="xl:contents">
+                      <label className="text-xs text-muted-foreground mb-1 block xl:hidden">사유내용</label>
+                      <Input
+                        value={record.reasonDetail}
+                        onChange={(e) => onUpdateRecord(record.id, "reasonDetail", e.target.value)}
+                        placeholder="사유내용"
+                        data-testid={`input-reasonDetail-${record.id}`}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-5 xl:contents gap-3">
+                    <div className="xl:contents">
+                      <label className="text-xs text-muted-foreground mb-1 block xl:hidden">시작일</label>
+                      <DatePickerButton
+                        value={record.startDate}
+                        onChange={(date) => onUpdateRecord(record.id, "startDate", date)}
+                        placeholder="시작일"
+                        testId={`input-startDate-${record.id}`}
+                      />
+                    </div>
+                    <div className="xl:contents">
+                      <label className="text-xs text-muted-foreground mb-1 block xl:hidden">종료일</label>
+                      <DatePickerButton
+                        value={record.endDate}
+                        onChange={(date) => onUpdateRecord(record.id, "endDate", date)}
+                        placeholder="종료일"
+                        testId={`input-endDate-${record.id}`}
+                      />
+                    </div>
+                    <div className="xl:contents">
+                      <label className="text-xs text-muted-foreground mb-1 block xl:hidden">일수</label>
+                      <Input
+                        type="number"
+                        value={record.daysCount}
+                        onChange={(e) => onUpdateRecord(record.id, "daysCount", parseInt(e.target.value) || 0)}
+                        className="text-center"
+                        placeholder="일수"
+                        data-testid={`input-daysCount-${record.id}`}
+                      />
+                    </div>
+                    <div className="xl:contents">
+                      <label className="text-xs text-muted-foreground mb-1 block xl:hidden">제출일</label>
+                      <DatePickerButton
+                        value={record.submitDate}
+                        onChange={(date) => onUpdateRecord(record.id, "submitDate", date)}
+                        placeholder="제출일"
+                        testId={`input-submitDate-${record.id}`}
+                      />
+                    </div>
+                    <div className="xl:contents">
+                      <label className="text-xs text-muted-foreground mb-1 block xl:hidden">담임</label>
+                      <Input
+                        value={record.teacherName}
+                        onChange={(e) => onUpdateRecord(record.id, "teacherName", e.target.value)}
+                        placeholder="담임"
+                        data-testid={`input-teacherName-${record.id}`}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="hidden xl:flex items-center justify-end gap-1">
+                    <Button size="icon" variant="ghost" onClick={() => onPreview(record)} data-testid={`button-preview-lg-${record.id}`}>
                       <Eye className="h-4 w-4" />
                     </Button>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => onDeleteRecord(record.id)}
-                      data-testid={`button-delete-${record.id}`}
-                    >
+                    <Button size="icon" variant="ghost" onClick={() => onDeleteRecord(record.id)} data-testid={`button-delete-lg-${record.id}`}>
                       <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
                   </div>
                 </div>
-                
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">학번</label>
-                    <Input
-                      value={record.studentId}
-                      onChange={(e) => onUpdateRecord(record.id, "studentId", e.target.value)}
-                      placeholder="1234"
-                      data-testid={`input-studentId-${record.id}`}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">성명</label>
-                    <Input
-                      value={record.studentName}
-                      onChange={(e) => onUpdateRecord(record.id, "studentName", e.target.value)}
-                      placeholder="홍길동"
-                      data-testid={`input-studentName-${record.id}`}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">사유코드</label>
-                    <Select
-                      value={record.reasonCode}
-                      onValueChange={(value) => onUpdateRecord(record.id, "reasonCode", value)}
-                    >
-                      <SelectTrigger data-testid={`select-reasonCode-${record.id}`}>
-                        <SelectValue placeholder="선택" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {REASON_CODES.map((code) => (
-                          <SelectItem key={code.value} value={code.value}>
-                            {code.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">사유 내용</label>
-                    <Input
-                      value={record.reasonDetail}
-                      onChange={(e) => onUpdateRecord(record.id, "reasonDetail", e.target.value)}
-                      placeholder="몸살"
-                      data-testid={`input-reasonDetail-${record.id}`}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">시작일</label>
-                    <DatePickerButton
-                      value={record.startDate}
-                      onChange={(date) => onUpdateRecord(record.id, "startDate", date)}
-                      placeholder="날짜 선택"
-                      testId={`input-startDate-${record.id}`}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">종료일</label>
-                    <DatePickerButton
-                      value={record.endDate}
-                      onChange={(date) => onUpdateRecord(record.id, "endDate", date)}
-                      placeholder="날짜 선택"
-                      testId={`input-endDate-${record.id}`}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">일수</label>
-                    <Input
-                      type="number"
-                      value={record.daysCount}
-                      onChange={(e) => onUpdateRecord(record.id, "daysCount", parseInt(e.target.value) || 0)}
-                      className="text-center"
-                      data-testid={`input-daysCount-${record.id}`}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">제출일</label>
-                    <DatePickerButton
-                      value={record.submitDate}
-                      onChange={(date) => onUpdateRecord(record.id, "submitDate", date)}
-                      placeholder="날짜 선택"
-                      testId={`input-submitDate-${record.id}`}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">담임</label>
-                    <Input
-                      value={record.teacherName}
-                      onChange={(e) => onUpdateRecord(record.id, "teacherName", e.target.value)}
-                      placeholder="김교사"
-                      data-testid={`input-teacherName-${record.id}`}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))
+              ))}
+            </>
           )}
         </div>
       </CardContent>
