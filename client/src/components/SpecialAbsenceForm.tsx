@@ -19,7 +19,6 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
     <div 
       className="print-document bg-white text-black px-12 py-8 max-w-[210mm] mx-auto absence-form" 
       style={{ 
-        minHeight: "297mm",
         fontFamily: "'Gulim', 'Batang', 'Noto Sans KR', sans-serif",
         fontSize: "12px",
         lineHeight: "1.8"

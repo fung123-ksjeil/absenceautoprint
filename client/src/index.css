@@ -289,33 +289,76 @@
 
 /* Print styles for absence forms */
 @media print {
-  body {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html, body {
     background: white !important;
     color: black !important;
     font-family: 'Gulim', 'Batang', sans-serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  .no-print {
+  /* Hide everything except print-only content */
+  body > *:not(.print-only-container) {
     display: none !important;
+  }
+
+  .no-print,
+  header,
+  nav,
+  footer,
+  .toaster,
+  [role="dialog"],
+  [data-radix-popper-content-wrapper] {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  .print-only-container {
+    display: block !important;
+    position: static !important;
+    visibility: visible !important;
   }
 
   .print-only {
     display: block !important;
+    position: static !important;
+    visibility: visible !important;
   }
 
   .absence-form {
     page-break-after: always;
-    padding: 20mm;
+    page-break-inside: avoid;
+    break-after: page;
+    break-inside: avoid;
+    padding: 15mm 20mm;
     margin: 0;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: auto;
+    background: white !important;
   }
 
   .absence-form:last-child {
     page-break-after: auto;
+    break-after: auto;
+  }
+
+  @page {
+    size: A4;
+    margin: 10mm;
   }
 }
 
 .print-only {
   display: none;
+  visibility: hidden;
+  position: absolute;
+  left: -9999px;
 }
 
 /* Print document font styles */

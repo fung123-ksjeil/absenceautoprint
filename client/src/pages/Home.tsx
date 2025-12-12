@@ -142,7 +142,7 @@ export default function Home() {
         />
       </main>
 
-      <div ref={printRef} className="print-only">
+      <div ref={printRef} className="print-only-container print-only">
         {printRecords.map((record) => (
           <div key={record.id}>
             {record.reasonCode === "0" ? (

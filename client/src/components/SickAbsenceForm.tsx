@@ -18,7 +18,6 @@ export default function SickAbsenceForm({ record }: SickAbsenceFormProps) {
     <div 
       className="print-document bg-white text-black px-16 py-12 max-w-[210mm] mx-auto absence-form" 
       style={{ 
-        minHeight: "297mm",
         fontFamily: "'Gulim', 'Batang', 'Noto Sans KR', sans-serif",
         fontSize: "15px",
         lineHeight: "2"
