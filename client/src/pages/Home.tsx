@@ -31,8 +31,35 @@ export default function Home() {
     setRecords([...records, newRecord]);
   };
 
+  const isValidDateFormat = (dateStr: string): boolean => {
+    if (!dateStr || dateStr.length !== 10) return false;
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!regex.test(dateStr)) return false;
+    const date = new Date(dateStr);
+    return !isNaN(date.getTime());
+  };
+
+  const calculateDays = (startDate: string, endDate: string): number => {
+    if (!isValidDateFormat(startDate) || !isValidDateFormat(endDate)) return 0;
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+    return diffDays;
+  };
+
   const handleUpdateRecord = (id: string, field: keyof AbsenceRecord, value: string | number) => {
-    setRecords(records.map((r) => (r.id === id ? { ...r, [field]: value } : r)));
+    setRecords(prevRecords => prevRecords.map((r) => {
+      if (r.id !== id) return r;
+      
+      const updated = { ...r, [field]: value };
+      
+      if (field === "startDate" || field === "endDate") {
+        updated.daysCount = calculateDays(updated.startDate, updated.endDate);
+      }
+      
+      return updated;
+    }));
   };
 
   const handleDeleteRecord = (id: string) => {
