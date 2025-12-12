@@ -94,8 +94,8 @@ export default function AbsenceFormInput({
           </Button>
         </div>
       </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
+      <CardContent className="overflow-visible">
+        <div className="overflow-x-auto overflow-y-visible">
           <Table>
             <TableHeader>
               <TableRow>

@@ -42,7 +42,7 @@ export default function DatePicker({ value, onChange, placeholder = "날짜 선�
           {date ? format(date, "yyyy-MM-dd") : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent className="w-auto p-0 z-50" align="start" side="bottom" sideOffset={4}>
         <Calendar
           mode="single"
           selected={date}
