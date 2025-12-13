@@ -42,9 +42,21 @@ export default function Home() {
 
   useEffect(() => {
     if (shouldPrint && printRecords.length > 0) {
+      const htmlElement = document.documentElement;
+      const wasDarkMode = htmlElement.classList.contains('dark');
+      
+      if (wasDarkMode) {
+        htmlElement.classList.remove('dark');
+      }
+
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           window.print();
+          
+          if (wasDarkMode) {
+            htmlElement.classList.add('dark');
+          }
+          
           toast({
             title: "출력 요청 완료",
             description: "프린터 대화상자가 열렸습니다.",
