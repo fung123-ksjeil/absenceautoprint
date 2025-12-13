@@ -20,19 +20,18 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
       style={{ 
         backgroundColor: "#ffffff",
         color: "#000000",
-        padding: "15mm 20mm",
+        padding: "10mm 15mm",
         maxWidth: "210mm",
-        minHeight: "297mm",
         margin: "0 auto",
         fontFamily: "'Batang', 'Gulim', 'Noto Sans KR', serif",
-        fontSize: "14px",
-        lineHeight: "1.9",
+        fontSize: "13px",
+        lineHeight: "1.7",
         boxSizing: "border-box"
       }}
     >
-      <div className="text-center" style={{ marginTop: "30px", marginBottom: "30px" }}>
+      <div className="text-center" style={{ marginTop: "15px", marginBottom: "15px" }}>
         <h1 style={{ 
-          fontSize: "24px", 
+          fontSize: "22px", 
           fontWeight: "bold", 
           letterSpacing: "0.3em",
           textDecoration: "underline"
@@ -41,37 +40,37 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
         </h1>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "30px" }}>
+      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "15px" }}>
         <table style={{ 
           borderCollapse: "collapse", 
-          fontSize: "12px",
+          fontSize: "11px",
           textAlign: "center"
         }}>
           <tbody>
             <tr>
               <td style={{ 
                 border: "1px solid #000", 
-                padding: "6px 25px",
-                height: "28px",
+                padding: "4px 20px",
+                height: "24px",
                 whiteSpace: "nowrap"
               }}>계</td>
               <td style={{ 
                 border: "1px solid #000", 
-                padding: "6px 25px",
-                height: "28px",
+                padding: "4px 20px",
+                height: "24px",
                 whiteSpace: "nowrap"
               }}>부장</td>
             </tr>
             <tr>
               <td style={{ 
                 border: "1px solid #000", 
-                padding: "6px 25px",
-                height: "40px"
+                padding: "4px 20px",
+                height: "30px"
               }}></td>
               <td style={{ 
                 border: "1px solid #000", 
-                padding: "6px 25px",
-                height: "40px",
+                padding: "4px 20px",
+                height: "30px",
                 verticalAlign: "middle",
                 textAlign: "center",
                 whiteSpace: "nowrap"
@@ -81,41 +80,41 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
         </table>
       </div>
 
-      <div style={{ textAlign: "right", marginBottom: "40px", paddingRight: "40px" }}>
-        <p style={{ fontSize: "14px", lineHeight: "2", marginBottom: "0" }}>학번 : {record.studentId}</p>
-        <p style={{ fontSize: "14px", lineHeight: "2", marginBottom: "0" }}>성명 : {record.studentName}</p>
+      <div style={{ textAlign: "right", marginBottom: "20px", paddingRight: "30px" }}>
+        <p style={{ fontSize: "13px", lineHeight: "1.8", marginBottom: "0" }}>학번 : {record.studentId}</p>
+        <p style={{ fontSize: "13px", lineHeight: "1.8", marginBottom: "0" }}>성명 : {record.studentName}</p>
       </div>
 
-      <div style={{ marginBottom: "30px", textAlign: "left", lineHeight: "2.2", paddingLeft: "5px", paddingRight: "5px" }}>
-        <p style={{ fontSize: "14px", textIndent: "1em" }}>
+      <div style={{ marginBottom: "15px", textAlign: "left", lineHeight: "2", paddingLeft: "5px", paddingRight: "5px" }}>
+        <p style={{ fontSize: "13px", textIndent: "1em" }}>
           위 학생은 ( {record.reasonDetail} )(으)로 인하여 학교성적관리규정 제 32 조 ( {record.reasonCode} )항에 의거 서류를 첨부하여 ( {formatDateKorean(record.startDate)} )부터 ( {formatDateKorean(record.endDate)} )까지 ( {record.daysCount} )일간 출석으로 처리하고자 합니다.
         </p>
       </div>
 
-      <div className="text-center" style={{ marginTop: "40px", marginBottom: "30px" }}>
-        <p style={{ fontSize: "14px" }}>{formatDateKorean(record.submitDate)}</p>
+      <div className="text-center" style={{ marginTop: "20px", marginBottom: "15px" }}>
+        <p style={{ fontSize: "13px" }}>{formatDateKorean(record.submitDate)}</p>
       </div>
 
-      <div style={{ textAlign: "right", paddingRight: "40px", marginBottom: "30px" }}>
-        <p style={{ fontSize: "14px" }}>담 임 : {record.teacherName} (인)</p>
+      <div style={{ textAlign: "right", paddingRight: "30px", marginBottom: "15px" }}>
+        <p style={{ fontSize: "13px" }}>담 임 : {record.teacherName} (인)</p>
       </div>
 
-      <div className="text-center" style={{ marginBottom: "40px" }}>
-        <p style={{ fontSize: "16px", fontWeight: "normal" }}>군산제일중학교장 귀하</p>
+      <div className="text-center" style={{ marginBottom: "20px" }}>
+        <p style={{ fontSize: "14px", fontWeight: "normal" }}>군산제일중학교장 귀하</p>
       </div>
 
       <div style={{ 
         borderTop: "1px solid #000", 
-        paddingTop: "12px",
-        fontSize: "11px",
-        lineHeight: "1.6",
-        marginTop: "20px"
+        paddingTop: "8px",
+        fontSize: "10px",
+        lineHeight: "1.45",
+        marginTop: "10px"
       }}>
-        <p style={{ fontWeight: "bold", marginBottom: "8px" }}>※ 학교성적관리규정 제 32 조</p>
-        <p style={{ marginBottom: "8px", textAlign: "justify" }}>
+        <p style={{ fontWeight: "bold", marginBottom: "5px" }}>※ 학교성적관리규정 제 32 조</p>
+        <p style={{ marginBottom: "5px", textAlign: "justify" }}>
           교칙에 의거, 출석하여야 할 날짜에 출석하지 않았을 때에는 결석으로 처리한다. 다만, 다음 각항의 하나에 해당되어 학교장이 부득이하다고 인정하거나 또는 허가한 경우에는 출석으로 처리한다.
         </p>
-        <div style={{ fontSize: "11px", lineHeight: "1.55" }}>
+        <div style={{ fontSize: "10px", lineHeight: "1.4" }}>
           <p>① 천재지변, 전염병 등 불가항력의 사유로 인하여 출석하지 못한 경우</p>
           <p>② 병역 관계 등 공적 의무 또는 공권력의 행사로 인하여 출석하지 못한 경우</p>
           <p>③ 학교를 대표한 경기, 경연 대회 참가 및 현장 실습, 훈련 참가, 교환학습, 교외체험학습 등으로 인하여 출석하지 못한 경우</p>
