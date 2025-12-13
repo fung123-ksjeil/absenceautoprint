@@ -92,15 +92,15 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
         </p>
       </div>
 
-      <div className="text-center" style={{ marginTop: "40px", marginBottom: "30px" }}>
+      <div className="text-center" style={{ marginTop: "40px", marginBottom: "15px" }}>
         <p style={{ fontSize: "14px" }}>{formatDateKorean(record.submitDate)}</p>
       </div>
 
-      <div style={{ textAlign: "right", paddingRight: "40px", marginBottom: "30px" }}>
+      <div style={{ textAlign: "right", paddingRight: "40px", marginBottom: "15px" }}>
         <p style={{ fontSize: "14px" }}>담 임 : {record.teacherName} (인)</p>
       </div>
 
-      <div className="text-center" style={{ marginBottom: "40px" }}>
+      <div className="text-center" style={{ marginBottom: "20px" }}>
         <p style={{ fontSize: "16px", fontWeight: "normal" }}>군산제일중학교장 귀하</p>
       </div>
 
@@ -109,7 +109,7 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
         paddingTop: "12px",
         fontSize: "11px",
         lineHeight: "1.6",
-        marginTop: "20px"
+        marginTop: "10px"
       }}>
         <p style={{ fontWeight: "bold", marginBottom: "8px" }}>※ 학교성적관리규정 제 32 조</p>
         <p style={{ marginBottom: "8px", textAlign: "justify" }}>
