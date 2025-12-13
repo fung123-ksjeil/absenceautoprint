@@ -16,8 +16,13 @@ function formatDateKorean(dateStr: string): string {
 export default function SickAbsenceForm({ record }: SickAbsenceFormProps) {
   return (
     <div 
-      className="print-document bg-white text-black px-16 py-12 max-w-[210mm] mx-auto absence-form" 
+      className="print-document absence-form" 
       style={{ 
+        backgroundColor: "#ffffff",
+        color: "#000000",
+        padding: "48px 64px",
+        maxWidth: "210mm",
+        margin: "0 auto",
         fontFamily: "'Gulim', 'Batang', 'Noto Sans KR', sans-serif",
         fontSize: "15px",
         lineHeight: "2"
