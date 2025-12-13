@@ -20,6 +20,18 @@ export default function Home() {
       daysCount: 2,
       submitDate: "2025-12-13",
       teacherName: "김선생",
+    },
+    {
+      id: "2",
+      studentId: "20215",
+      studentName: "이영희",
+      reasonCode: "3",
+      reasonDetail: "교외체험학습",
+      startDate: "2025-12-09",
+      endDate: "2025-12-10",
+      daysCount: 2,
+      submitDate: "2025-12-13",
+      teacherName: "박선생",
     }
   ]);
   const [previewRecord, setPreviewRecord] = useState<AbsenceRecord | null>(null);
