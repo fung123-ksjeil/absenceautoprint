@@ -20,12 +20,12 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
       style={{ 
         backgroundColor: "#ffffff",
         color: "#000000",
-        padding: "10mm 15mm",
+        padding: "15mm 20mm",
         maxWidth: "210mm",
         margin: "0 auto",
         fontFamily: "'Batang', 'Gulim', 'Noto Sans KR', serif",
         fontSize: "13px",
-        lineHeight: "1.7",
+        lineHeight: "1.6",
         boxSizing: "border-box"
       }}
     >
@@ -85,7 +85,7 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
         <p style={{ fontSize: "13px", lineHeight: "1.8", marginBottom: "0" }}>성명 : {record.studentName}</p>
       </div>
 
-      <div style={{ marginBottom: "15px", textAlign: "left", lineHeight: "2", paddingLeft: "5px", paddingRight: "5px" }}>
+      <div style={{ marginBottom: "15px", textAlign: "left", lineHeight: "1.8", paddingLeft: "5px", paddingRight: "5px" }}>
         <p style={{ fontSize: "13px", textIndent: "1em" }}>
           위 학생은 ( {record.reasonDetail} )(으)로 인하여 학교성적관리규정 제 32 조 ( {record.reasonCode} )항에 의거 서류를 첨부하여 ( {formatDateKorean(record.startDate)} )부터 ( {formatDateKorean(record.endDate)} )까지 ( {record.daysCount} )일간 출석으로 처리하고자 합니다.
         </p>
@@ -107,14 +107,14 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
         borderTop: "1px solid #000", 
         paddingTop: "8px",
         fontSize: "10px",
-        lineHeight: "1.45",
+        lineHeight: "1.5",
         marginTop: "10px"
       }}>
         <p style={{ fontWeight: "bold", marginBottom: "5px" }}>※ 학교성적관리규정 제 32 조</p>
         <p style={{ marginBottom: "5px", textAlign: "justify" }}>
           교칙에 의거, 출석하여야 할 날짜에 출석하지 않았을 때에는 결석으로 처리한다. 다만, 다음 각항의 하나에 해당되어 학교장이 부득이하다고 인정하거나 또는 허가한 경우에는 출석으로 처리한다.
         </p>
-        <div style={{ fontSize: "10px", lineHeight: "1.4" }}>
+        <div style={{ fontSize: "10px", lineHeight: "1.45" }}>
           <p>① 천재지변, 전염병 등 불가항력의 사유로 인하여 출석하지 못한 경우</p>
           <p>② 병역 관계 등 공적 의무 또는 공권력의 행사로 인하여 출석하지 못한 경우</p>
           <p>③ 학교를 대표한 경기, 경연 대회 참가 및 현장 실습, 훈련 참가, 교환학습, 교외체험학습 등으로 인하여 출석하지 못한 경우</p>
