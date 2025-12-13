@@ -8,7 +8,20 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function Home() {
   const { toast } = useToast();
-  const [records, setRecords] = useState<AbsenceRecord[]>([]);
+  const [records, setRecords] = useState<AbsenceRecord[]>([
+    {
+      id: "1",
+      studentId: "20301",
+      studentName: "홍길동",
+      reasonCode: "0",
+      reasonDetail: "감기",
+      startDate: "2025-12-10",
+      endDate: "2025-12-11",
+      daysCount: 2,
+      submitDate: "2025-12-13",
+      teacherName: "김선생",
+    }
+  ]);
   const [previewRecord, setPreviewRecord] = useState<AbsenceRecord | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [printRecords, setPrintRecords] = useState<AbsenceRecord[]>([]);
