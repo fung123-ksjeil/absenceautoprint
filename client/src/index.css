@@ -295,18 +295,23 @@
     color-adjust: exact !important;
   }
 
-  html {
-    background: #fff !important;
+  html, html.dark, :root {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
   }
 
-  body {
-    background: #fff !important;
-    color: #000 !important;
+  body, body.dark, .dark {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #000000 !important;
     font-family: 'Gulim', 'Batang', sans-serif !important;
     margin: 0 !important;
     padding: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
+  }
+
+  #root {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
   }
 
   .no-print,
@@ -334,7 +339,8 @@
     width: auto !important;
     height: auto !important;
     overflow: visible !important;
-    background: #fff !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
   }
 
   .print-page {
@@ -342,6 +348,8 @@
     page-break-inside: avoid;
     break-after: page;
     break-inside: avoid;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
   }
 
   .print-page:last-child {
@@ -355,13 +363,22 @@
     box-sizing: border-box !important;
     width: 100% !important;
     max-width: none !important;
-    background: #fff !important;
-    color: #000 !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #000000 !important;
   }
 
-  .absence-form * {
-    color: #000 !important;
+  .absence-form *,
+  .print-document *,
+  .print-page * {
+    color: #000000 !important;
+    background-color: transparent !important;
     background: transparent !important;
+    border-color: #000000 !important;
+  }
+
+  .text-center, div, p, h1, span {
+    color: #000000 !important;
   }
 
   @page {
@@ -376,7 +393,7 @@
   top: 0;
   visibility: hidden;
   width: 210mm;
-  background: #fff;
+  background: #ffffff;
 }
 
 /* Print document font styles */
