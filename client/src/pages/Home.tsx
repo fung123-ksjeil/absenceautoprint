@@ -43,29 +43,42 @@ export default function Home() {
   useEffect(() => {
     if (shouldPrint && printRecords.length > 0) {
       const htmlElement = document.documentElement;
+      const bodyElement = document.body;
       const wasDarkMode = htmlElement.classList.contains('dark');
+      
+      const originalHtmlBg = htmlElement.style.backgroundColor;
+      const originalBodyBg = bodyElement.style.backgroundColor;
       
       if (wasDarkMode) {
         htmlElement.classList.remove('dark');
       }
+      
+      htmlElement.style.backgroundColor = '#ffffff';
+      bodyElement.style.backgroundColor = '#ffffff';
 
-      const restoreDarkMode = () => {
+      const restoreStyles = () => {
         if (wasDarkMode) {
           htmlElement.classList.add('dark');
         }
+        htmlElement.style.backgroundColor = originalHtmlBg;
+        bodyElement.style.backgroundColor = originalBodyBg;
         toast({
           title: "출력 요청 완료",
           description: "프린터 대화상자가 열렸습니다.",
         });
         setShouldPrint(false);
-        window.removeEventListener('afterprint', restoreDarkMode);
+        window.removeEventListener('afterprint', restoreStyles);
       };
 
-      window.addEventListener('afterprint', restoreDarkMode);
+      window.addEventListener('afterprint', restoreStyles);
 
-      setTimeout(() => {
-        window.print();
-      }, 100);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            window.print();
+          });
+        });
+      });
     }
   }, [shouldPrint, printRecords, toast]);
 
