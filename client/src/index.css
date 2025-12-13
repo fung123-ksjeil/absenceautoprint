@@ -302,12 +302,13 @@
     padding: 0 !important;
   }
 
-  /* Hide everything except print-only content */
-  body > *:not(.print-only-container) {
+  .no-print {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
   }
 
-  .no-print,
   header,
   nav,
   footer,
@@ -318,34 +319,32 @@
     visibility: hidden !important;
   }
 
-  .print-only-container {
-    display: block !important;
-    position: static !important;
-    visibility: visible !important;
-  }
-
   .print-only {
     display: block !important;
     position: static !important;
     visibility: visible !important;
+    left: auto !important;
   }
 
-  .absence-form {
+  .print-page {
     page-break-after: always;
     page-break-inside: avoid;
     break-after: page;
     break-inside: avoid;
-    padding: 15mm 20mm;
+  }
+
+  .print-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  .absence-form {
+    padding: 10mm 15mm;
     margin: 0;
     box-sizing: border-box;
     width: 100%;
-    min-height: auto;
+    max-width: none;
     background: white !important;
-  }
-
-  .absence-form:last-child {
-    page-break-after: auto;
-    break-after: auto;
   }
 
   @page {

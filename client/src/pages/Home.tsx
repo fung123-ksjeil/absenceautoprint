@@ -140,36 +140,38 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
-      <main className="container mx-auto px-4 py-6">
-        <div className="mb-6">
-          <p className="text-muted-foreground text-sm">
-            학생들의 결석 정보를 입력하고 결석신고서를 자동으로 생성하여 출력할 수 있습니다.
-          </p>
-        </div>
+    <>
+      <div className="min-h-screen bg-background no-print">
+        <Header />
+        
+        <main className="container mx-auto px-4 py-6">
+          <div className="mb-6">
+            <p className="text-muted-foreground text-sm">
+              학생들의 결석 정보를 입력하고 결석신고서를 자동으로 생성하여 출력할 수 있습니다.
+            </p>
+          </div>
 
-        <AbsenceFormInput
-          records={records}
-          onAddRecord={handleAddRecord}
-          onUpdateRecord={handleUpdateRecord}
-          onDeleteRecord={handleDeleteRecord}
-          onPreview={handlePreview}
-          onPrintAll={handlePrintAll}
-        />
+          <AbsenceFormInput
+            records={records}
+            onAddRecord={handleAddRecord}
+            onUpdateRecord={handleUpdateRecord}
+            onDeleteRecord={handleDeleteRecord}
+            onPreview={handlePreview}
+            onPrintAll={handlePrintAll}
+          />
 
-        <PreviewModal
-          open={isPreviewOpen}
-          onClose={handleClosePreview}
-          record={previewRecord}
-          onPrint={handlePrintSingle}
-        />
-      </main>
+          <PreviewModal
+            open={isPreviewOpen}
+            onClose={handleClosePreview}
+            record={previewRecord}
+            onPrint={handlePrintSingle}
+          />
+        </main>
+      </div>
 
-      <div ref={printRef} className="print-only-container print-only">
+      <div ref={printRef} className="print-only">
         {printRecords.map((record) => (
-          <div key={record.id}>
+          <div key={record.id} className="print-page">
             {record.reasonCode === "0" ? (
               <SickAbsenceForm record={record} />
             ) : (
@@ -178,6 +180,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
