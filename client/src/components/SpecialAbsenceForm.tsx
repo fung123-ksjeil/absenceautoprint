@@ -52,19 +52,30 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
               <td style={{ 
                 border: "1px solid #000", 
                 padding: "6px 20px",
-                width: "60px"
+                width: "60px",
+                height: "28px"
               }}>계</td>
               <td style={{ 
                 border: "1px solid #000", 
                 padding: "6px 20px",
-                width: "60px"
+                width: "60px",
+                height: "28px"
               }}>부장</td>
             </tr>
             <tr>
-              <td colSpan={2} style={{ 
+              <td style={{ 
                 border: "1px solid #000", 
                 padding: "6px 20px",
+                width: "60px",
                 height: "40px"
+              }}></td>
+              <td style={{ 
+                border: "1px solid #000", 
+                padding: "6px 20px",
+                width: "60px",
+                height: "40px",
+                verticalAlign: "middle",
+                textAlign: "center"
               }}>전결</td>
             </tr>
           </tbody>
