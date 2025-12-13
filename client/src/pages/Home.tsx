@@ -141,8 +141,10 @@ export default function Home() {
     if (previewRecord) {
       if (!validateRecords([previewRecord])) return;
       setIsPreviewOpen(false);
-      setPrintRecords([previewRecord]);
-      setShouldPrint(true);
+      setTimeout(() => {
+        setPrintRecords([previewRecord]);
+        setShouldPrint(true);
+      }, 300);
     }
   };
 
