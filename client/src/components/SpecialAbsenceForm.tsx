@@ -30,14 +30,45 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
         boxSizing: "border-box"
       }}
     >
-      <div className="text-center" style={{ marginTop: "30px", marginBottom: "50px" }}>
+      <div className="text-center" style={{ marginTop: "30px", marginBottom: "30px" }}>
         <h1 style={{ 
           fontSize: "24px", 
           fontWeight: "bold", 
-          letterSpacing: "0.3em"
+          letterSpacing: "0.3em",
+          textDecoration: "underline"
         }}>
-          특별결석신고서
+          특 별 결 석 신 고 서
         </h1>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "30px" }}>
+        <table style={{ 
+          borderCollapse: "collapse", 
+          fontSize: "12px",
+          textAlign: "center"
+        }}>
+          <tbody>
+            <tr>
+              <td style={{ 
+                border: "1px solid #000", 
+                padding: "6px 20px",
+                width: "60px"
+              }}>계</td>
+              <td style={{ 
+                border: "1px solid #000", 
+                padding: "6px 20px",
+                width: "60px"
+              }}>부장</td>
+            </tr>
+            <tr>
+              <td colSpan={2} style={{ 
+                border: "1px solid #000", 
+                padding: "6px 20px",
+                height: "40px"
+              }}>전결</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <div style={{ textAlign: "right", marginBottom: "40px", paddingRight: "40px" }}>
