@@ -1,5 +1,4 @@
 import type { AbsenceRecord } from "./AbsenceFormInput";
-import stampImage from "@assets/삽입이미지_1765541637616.png";
 
 interface SpecialAbsenceFormProps {
   record: AbsenceRecord;
@@ -21,63 +20,61 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
       style={{ 
         backgroundColor: "#ffffff",
         color: "#000000",
-        padding: "32px 48px",
+        padding: "15mm 20mm",
         maxWidth: "210mm",
+        minHeight: "297mm",
         margin: "0 auto",
-        fontFamily: "'Gulim', 'Batang', 'Noto Sans KR', sans-serif",
-        fontSize: "12px",
-        lineHeight: "1.8"
+        fontFamily: "'Batang', 'Gulim', 'Noto Sans KR', serif",
+        fontSize: "14px",
+        lineHeight: "1.9",
+        boxSizing: "border-box"
       }}
     >
-      <div className="text-center" style={{ marginTop: "30px", marginBottom: "20px" }}>
+      <div className="text-center" style={{ marginTop: "30px", marginBottom: "50px" }}>
         <h1 style={{ 
-          fontSize: "20px", 
+          fontSize: "24px", 
           fontWeight: "bold", 
-          textDecoration: "underline",
-          letterSpacing: "0.2em"
+          letterSpacing: "0.3em"
         }}>
           특별결석신고서
         </h1>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "20px" }}>
-        <img src={stampImage} alt="결재란" style={{ height: "auto", maxWidth: "120px" }} />
+      <div style={{ textAlign: "right", marginBottom: "40px", paddingRight: "40px" }}>
+        <p style={{ fontSize: "14px", lineHeight: "2", marginBottom: "0" }}>학번 : {record.studentId}</p>
+        <p style={{ fontSize: "14px", lineHeight: "2", marginBottom: "0" }}>성명 : {record.studentName}</p>
       </div>
 
-      <div style={{ textAlign: "right", marginBottom: "30px", paddingRight: "20px" }}>
-        <p style={{ fontSize: "12px", lineHeight: "1.8" }}>학번 : {record.studentId}</p>
-        <p style={{ fontSize: "12px", lineHeight: "1.8" }}>성명 : {record.studentName}</p>
-      </div>
-
-      <div style={{ marginBottom: "30px", textAlign: "left", lineHeight: "2.2" }}>
-        <p style={{ fontSize: "12px", textIndent: "1em" }}>
+      <div style={{ marginBottom: "30px", textAlign: "left", lineHeight: "2.2", paddingLeft: "5px", paddingRight: "5px" }}>
+        <p style={{ fontSize: "14px", textIndent: "1em" }}>
           위 학생은 ( {record.reasonDetail} )(으)로 인하여 학교성적관리규정 제 32 조 ( {record.reasonCode} )항에 의거 서류를 첨부하여 ( {formatDateKorean(record.startDate)} )부터 ( {formatDateKorean(record.endDate)} )까지 ( {record.daysCount} )일간 출석으로 처리하고자 합니다.
         </p>
       </div>
 
-      <div className="text-center" style={{ marginBottom: "20px" }}>
-        <p style={{ fontSize: "12px" }}>{formatDateKorean(record.submitDate)}</p>
+      <div className="text-center" style={{ marginTop: "40px", marginBottom: "30px" }}>
+        <p style={{ fontSize: "14px" }}>{formatDateKorean(record.submitDate)}</p>
       </div>
 
-      <div style={{ textAlign: "right", paddingRight: "20px", marginBottom: "30px" }}>
-        <p style={{ fontSize: "12px" }}>담 임 : {record.teacherName} (인)</p>
+      <div style={{ textAlign: "right", paddingRight: "40px", marginBottom: "30px" }}>
+        <p style={{ fontSize: "14px" }}>담 임 : {record.teacherName} (인)</p>
       </div>
 
-      <div className="text-center" style={{ marginBottom: "30px" }}>
-        <p style={{ fontSize: "15px", fontWeight: "500" }}>군산제일중학교장 귀하</p>
+      <div className="text-center" style={{ marginBottom: "40px" }}>
+        <p style={{ fontSize: "16px", fontWeight: "normal" }}>군산제일중학교장 귀하</p>
       </div>
 
       <div style={{ 
         borderTop: "1px solid #000", 
-        paddingTop: "15px",
-        fontSize: "10px",
-        lineHeight: "1.6"
+        paddingTop: "12px",
+        fontSize: "11px",
+        lineHeight: "1.6",
+        marginTop: "20px"
       }}>
-        <p style={{ fontWeight: "500", marginBottom: "8px" }}>※ 학교성적관리규정 제 32 조</p>
-        <p style={{ marginBottom: "8px" }}>
+        <p style={{ fontWeight: "bold", marginBottom: "8px" }}>※ 학교성적관리규정 제 32 조</p>
+        <p style={{ marginBottom: "8px", textAlign: "justify" }}>
           교칙에 의거, 출석하여야 할 날짜에 출석하지 않았을 때에는 결석으로 처리한다. 다만, 다음 각항의 하나에 해당되어 학교장이 부득이하다고 인정하거나 또는 허가한 경우에는 출석으로 처리한다.
         </p>
-        <div style={{ fontSize: "10px", lineHeight: "1.5" }}>
+        <div style={{ fontSize: "11px", lineHeight: "1.55" }}>
           <p>① 천재지변, 전염병 등 불가항력의 사유로 인하여 출석하지 못한 경우</p>
           <p>② 병역 관계 등 공적 의무 또는 공권력의 행사로 인하여 출석하지 못한 경우</p>
           <p>③ 학교를 대표한 경기, 경연 대회 참가 및 현장 실습, 훈련 참가, 교환학습, 교외체험학습 등으로 인하여 출석하지 못한 경우</p>

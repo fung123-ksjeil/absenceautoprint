@@ -358,14 +358,16 @@
   }
 
   .absence-form {
-    padding: 10mm 15mm !important;
+    padding: 15mm 20mm !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     width: 100% !important;
     max-width: none !important;
+    min-height: auto !important;
     background-color: #ffffff !important;
     background: #ffffff !important;
     color: #000000 !important;
+    font-family: 'Batang', 'Gulim', serif !important;
   }
 
   .absence-form *,
