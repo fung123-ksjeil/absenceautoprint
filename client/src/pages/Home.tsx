@@ -158,10 +158,6 @@ export default function Home() {
 
     if (!validateRecords(records)) return;
 
-    toast({
-      title: "출력 준비 중",
-      description: `총 ${records.length}건의 결석계를 출력합니다.`,
-    });
     setPrintRecords(records);
     setShouldPrint(true);
   };
