@@ -49,21 +49,23 @@ export default function Home() {
         htmlElement.classList.remove('dark');
       }
 
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          window.print();
-          
-          if (wasDarkMode) {
-            htmlElement.classList.add('dark');
-          }
-          
-          toast({
-            title: "출력 요청 완료",
-            description: "프린터 대화상자가 열렸습니다.",
-          });
-          setShouldPrint(false);
+      const restoreDarkMode = () => {
+        if (wasDarkMode) {
+          htmlElement.classList.add('dark');
+        }
+        toast({
+          title: "출력 요청 완료",
+          description: "프린터 대화상자가 열렸습니다.",
         });
-      });
+        setShouldPrint(false);
+        window.removeEventListener('afterprint', restoreDarkMode);
+      };
+
+      window.addEventListener('afterprint', restoreDarkMode);
+
+      setTimeout(() => {
+        window.print();
+      }, 100);
     }
   }, [shouldPrint, printRecords, toast]);
 
