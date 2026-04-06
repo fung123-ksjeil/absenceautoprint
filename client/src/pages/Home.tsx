@@ -11,14 +11,14 @@ export default function Home() {
   const [records, setRecords] = useState<AbsenceRecord[]>([
     {
       id: "1",
-      studentId: "20301",
+      studentId: "1101",
       studentName: "홍길동",
       reasonCode: "0",
       reasonDetail: "감기",
-      startDate: "2025-12-10",
-      endDate: "2025-12-11",
-      daysCount: 2,
-      submitDate: "2025-12-13",
+      startDate: new Date().toISOString().split("T")[0],
+      endDate: new Date().toISOString().split("T")[0],
+      daysCount: 1,
+      submitDate: new Date().toISOString().split("T")[0],
       teacherName: "김선생",
     },
     {
