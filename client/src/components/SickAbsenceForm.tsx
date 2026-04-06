@@ -45,9 +45,11 @@ export default function SickAbsenceForm({ record }: SickAbsenceFormProps) {
         <p style={{ fontSize: "16px", fontWeight: "normal" }}>(질병 결석 처리용)</p>
       </div>
 
-      <div style={{ textAlign: "right", marginBottom: "50px", paddingRight: "60px" }}>
-        <p style={{ fontSize: "16px", lineHeight: "2", marginBottom: "0" }}>학번 : {record.studentId}</p>
-        <p style={{ fontSize: "16px", lineHeight: "2", marginBottom: "0" }}>성명 : {record.studentName}</p>
+      <div style={{ marginBottom: "50px", display: "flex", justifyContent: "flex-end" }}>
+        <div style={{ textAlign: "left" }}>
+          <p style={{ fontSize: "16px", lineHeight: "2", marginBottom: "0" }}>학번 : {record.studentId}</p>
+          <p style={{ fontSize: "16px", lineHeight: "2", marginBottom: "0" }}>성명 : {record.studentName}</p>
+        </div>
       </div>
 
       <div style={{ marginBottom: "80px", textAlign: "left", lineHeight: "2.5", paddingLeft: "10px", paddingRight: "10px" }}>
