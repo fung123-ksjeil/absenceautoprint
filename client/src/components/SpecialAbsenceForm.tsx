@@ -86,8 +86,8 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
         <p style={{ fontSize: "14px", lineHeight: "1.8", marginBottom: "0" }}>성명 : {record.studentName}</p>
       </div>
 
-      <div style={{ marginBottom: "15px", textAlign: "left", lineHeight: "1.8", paddingLeft: "5px", paddingRight: "5px" }}>
-        <p style={{ fontSize: "14px", textIndent: "1em" }}>
+      <div style={{ marginTop: "30px", marginBottom: "15px", textAlign: "left", lineHeight: "1.8", paddingLeft: "5px", paddingRight: "5px" }}>
+        <p style={{ fontSize: "16px", textIndent: "1em" }}>
           위 학생은 ( {record.reasonDetail} )(으)로 결석하였기에 학업성적관리규정 ( {record.reasonCode} )번에 의거 서류를 첨부하여 ( {formatDateKorean(record.startDate)} )부터  ( {formatDateKorean(record.endDate)} )까지 ( {record.daysCount} 일간) 출석으로 처리하고자 합니다.
         </p>
       </div>
