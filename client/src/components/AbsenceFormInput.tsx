@@ -242,8 +242,10 @@ export default function AbsenceFormInput({
                       <Input
                         type="number"
                         min={1}
-                        value={record.daysCount}
-                        onChange={(e) => onUpdateRecord(record.id, "daysCount", parseInt(e.target.value) || 0)}
+                        //value={record.daysCount}
+                        //onChange={(e) => onUpdateRecord(record.id, "daysCount", parseInt(e.target.value) || 0)}
+                        value={record.daysCount || 1}
+                        onChange={(e) => {const value = parseInt(e.target.value); onUpdateRecord(record.id, "daysCount", value >= 1 ? value : 1);}}
                         className="text-center"
                         placeholder="일수"
                         data-testid={`input-daysCount-${record.id}`}
