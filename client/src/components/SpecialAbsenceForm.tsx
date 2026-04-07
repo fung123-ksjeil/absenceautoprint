@@ -81,20 +81,20 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
         </table>
       </div>
 
-      <div style={{ marginTop: "20px", marginBottom: "15px", display: "flex", justifyContent: "flex-end", marginRight: "20px" }}>
+      <div style={{ marginTop: "40px", marginBottom: "15px", display: "flex", justifyContent: "flex-end", marginRight: "20px" }}>
         <div style={{ textAlign: "left" }}>
           <p style={{ fontSize: "14px", lineHeight: "1.8", marginBottom: "0" }}>학번 : {record.studentId}</p>
           <p style={{ fontSize: "14px", lineHeight: "1.8", marginBottom: "0" }}>성명 : {record.studentName}</p>
         </div>
       </div>
 
-      <div style={{ marginTop: "40px", marginBottom: "15px", textAlign: "left", lineHeight: "1.8", paddingLeft: "5px", paddingRight: "5px" }}>
+      <div style={{ marginTop: "60px", marginBottom: "15px", textAlign: "left", lineHeight: "1.8", paddingLeft: "5px", paddingRight: "5px" }}>
         <p style={{ fontSize: "16px", textIndent: "1em" }}>
           위 학생은 ( {record.reasonDetail} )(으)로 결석하였기에 학업성적관리규정 ( {record.reasonCode} )번에 의거 서류를 첨부하여 ( {formatDateKorean(record.startDate)} )부터  ( {formatDateKorean(record.endDate)} )까지 ( {record.daysCount} 일간) 출석으로 처리하고자 합니다.
         </p>
       </div>
 
-      <div className="text-center" style={{ marginTop: "10px", marginBottom: "8px" }}>
+      <div className="text-center" style={{ marginTop: "30px", marginBottom: "8px" }}>
         <p style={{ fontSize: "16px" }}>{formatDateKorean(record.submitDate)}</p>
       </div>
 
@@ -102,7 +102,7 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
         <p style={{ fontSize: "16px" }}>담 임 : {record.teacherName} (인)</p>
       </div>
 
-      <div className="text-center" style={{ marginTop: "20px", marginBottom: "10px" }}>
+      <div className="text-center" style={{ marginTop: "40px", marginBottom: "10px" }}>
         <p style={{ fontSize: "16px", fontWeight: "normal" }}>군산제일중학교장 귀하</p>
       </div>
 
