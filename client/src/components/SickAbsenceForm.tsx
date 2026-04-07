@@ -47,25 +47,25 @@ export default function SickAbsenceForm({ record }: SickAbsenceFormProps) {
 
       <div style={{ marginBottom: "50px", display: "flex", justifyContent: "flex-end" }}>
         <div style={{ textAlign: "left" }}>
-          <p style={{ fontSize: "16px", lineHeight: "2", marginBottom: "0" }}>학번 : {record.studentId}</p>
-          <p style={{ fontSize: "16px", lineHeight: "2", marginBottom: "0" }}>성명 : {record.studentName}</p>
+          <p style={{ fontSize: "20px", lineHeight: "2", marginBottom: "0", marginRight: "40px" }}>학번 : {record.studentId}</p>
+          <p style={{ fontSize: "20px", lineHeight: "2", marginBottom: "0", marginRight: "40px" }}>성명 : {record.studentName}</p>
         </div>
       </div>
 
       <div style={{ marginBottom: "80px", textAlign: "left", lineHeight: "2.5", paddingLeft: "10px", paddingRight: "10px" }}>
-        <p style={{ fontSize: "16px", textIndent: "0" }}>
+        <p style={{ fontSize: "20px", textIndent: "0" }}>
           위 본인은 ( {formatDateKorean(record.startDate)} )부터 ( {formatDateKorean(record.endDate)} )까지 ( {record.daysCount} )일간 ( {record.reasonDetail} )(으)로 인하여 결석하였기에 이를 확인하고 결석신고서를 제출합니다.
         </p>
       </div>
 
       <div style={{ textAlign: "right", paddingRight: "60px", marginTop: "60px" }}>
-        <p style={{ fontSize: "16px", marginBottom: "50px" }}>{formatDateKorean(record.submitDate)}</p>
-        <p style={{ fontSize: "16px" }}>담 임 : {record.teacherName} (인)</p>
+        <p style={{ fontSize: "20px", marginBottom: "50px" }}>{formatDateKorean(record.submitDate)}</p>
+        <p style={{ fontSize: "20px" }}>담 임 : {record.teacherName} (인)</p>
       </div>
 
       <div className="text-center" style={{ marginTop: "100px" }}>
-        <p style={{ fontSize: "18px", fontWeight: "bold", letterSpacing: "0.4em" }}>
-          군 산 제 일 중 학 교 장 귀 하
+        <p style={{ fontSize: "25px", fontWeight: "bold", letterSpacing: "0.4em" }}>
+          군산제일중학교장 귀하
         </p>
       </div>
     </div>
