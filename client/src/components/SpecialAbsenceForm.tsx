@@ -81,7 +81,7 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
         </table>
       </div>
 
-      <div style={{ marginTop: "40px", marginBottom: "15px", display: "flex", justifyContent: "flex-end", marginRight: "50px" }}>
+      <div style={{ marginTop: "40px", marginBottom: "15px", display: "flex", justifyContent: "flex-end", marginRight: "45px" }}>
         <div style={{ textAlign: "left" }}>
           <p style={{ fontSize: "18px", lineHeight: "1.8", marginBottom: "0" }}>학번 : {record.studentId}</p>
           <p style={{ fontSize: "18px", lineHeight: "1.8", marginBottom: "0" }}>성명 : {record.studentName}</p>
