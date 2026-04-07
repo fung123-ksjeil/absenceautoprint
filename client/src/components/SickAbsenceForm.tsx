@@ -41,8 +41,8 @@ export default function SickAbsenceForm({ record }: SickAbsenceFormProps) {
         </h1>
       </div>
       
-      <div className="text-center" style={{ marginBottom: "60px" }}>
-        <p style={{ fontSize: "16px", fontWeight: "normal" }}>(질병 결석 처리용)</p>
+      <div className="text-center" style={{ marginBottom: "40px" }}>
+        <p style={{ fontSize: "18px", fontWeight: "normal" }}>(질병 결석 처리용)</p>
       </div>
 
       <div style={{ marginBottom: "50px", display: "flex", justifyContent: "flex-end" }}>
