@@ -52,13 +52,13 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
               <td style={{ 
                 border: "1px solid #000", 
                 padding: "6px 25px",
-                height: "28px",
+                height: "25px",
                 whiteSpace: "nowrap"
               }}>계</td>
               <td style={{ 
                 border: "1px solid #000", 
                 padding: "6px 25px",
-                height: "28px",
+                height: "25px",
                 whiteSpace: "nowrap"
               }}>부장</td>
             </tr>
@@ -83,12 +83,12 @@ export default function SpecialAbsenceForm({ record }: SpecialAbsenceFormProps) 
 
       <div style={{ marginTop: "40px", marginBottom: "15px", display: "flex", justifyContent: "flex-end", marginRight: "50px" }}>
         <div style={{ textAlign: "left" }}>
-          <p style={{ fontSize: "14px", lineHeight: "1.8", marginBottom: "0" }}>학번 : {record.studentId}</p>
-          <p style={{ fontSize: "14px", lineHeight: "1.8", marginBottom: "0" }}>성명 : {record.studentName}</p>
+          <p style={{ fontSize: "18px", lineHeight: "1.8", marginBottom: "0" }}>학번 : {record.studentId}</p>
+          <p style={{ fontSize: "18px", lineHeight: "1.8", marginBottom: "0" }}>성명 : {record.studentName}</p>
         </div>
       </div>
 
-      <div style={{ marginTop: "60px", marginBottom: "15px", textAlign: "left", lineHeight: "2.5", paddingLeft: "5px", paddingRight: "5px" }}>
+      <div style={{ marginTop: "40px", marginBottom: "15px", textAlign: "left", lineHeight: "2.5", paddingLeft: "5px", paddingRight: "5px" }}>
         <p style={{ fontSize: "18px", textIndent: "1em" }}>
           위 학생은 ( {record.reasonDetail} )(으)로 결석하였기에 학업성적관리규정 ( {record.reasonCode} )번에 의거 서류를 첨부하여 ( {formatDateKorean(record.startDate)} )부터  ( {formatDateKorean(record.endDate)} )까지 ( {record.daysCount} 일간) 출석으로 처리하고자 합니다.
         </p>
