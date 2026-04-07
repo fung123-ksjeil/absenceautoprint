@@ -241,6 +241,7 @@ export default function AbsenceFormInput({
                       <label className="text-xs text-muted-foreground mb-1 block xl:hidden">일수</label>
                       <Input
                         type="number"
+                        min={1}
                         value={record.daysCount}
                         onChange={(e) => onUpdateRecord(record.id, "daysCount", parseInt(e.target.value) || 0)}
                         className="text-center"
