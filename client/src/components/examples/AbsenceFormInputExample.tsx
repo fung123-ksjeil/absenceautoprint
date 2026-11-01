@@ -72,6 +72,8 @@ export default function AbsenceFormInputExample() {
       onDeleteRecord={handleDeleteRecord}
       onPreview={handlePreview}
       onPrintAll={handlePrintAll}
+      onDownloadAll={() => console.log("Download all triggered")}
+      isDownloading={false}
     />
   );
 }

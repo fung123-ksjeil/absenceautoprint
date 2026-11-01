@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { Plus, Trash2, Eye, Printer, CalendarIcon } from "lucide-react";
+import { Plus, Trash2, Eye, Printer, CalendarIcon, Download } from "lucide-react";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 
@@ -29,6 +29,8 @@ interface AbsenceFormInputProps {
   onDeleteRecord: (id: string) => void;
   onPreview: (record: AbsenceRecord) => void;
   onPrintAll: () => void;
+  onDownloadAll: () => void;
+  isDownloading: boolean;
 }
 
 const REASON_CODES = [
@@ -101,6 +103,8 @@ export default function AbsenceFormInput({
   onDeleteRecord,
   onPreview,
   onPrintAll,
+  onDownloadAll,
+  isDownloading,
 }: AbsenceFormInputProps) {
 
   return (
@@ -116,14 +120,23 @@ export default function AbsenceFormInput({
             행 추가
           </Button>
           <Button
+            onClick={onDownloadAll}
+            size="sm"
+            disabled={records.length === 0 || isDownloading}
+            data-testid="button-download-all"
+          >
+            <Download className="h-4 w-4 mr-1" />
+            {isDownloading ? "생성 중…" : "전체 원본 HWPX 저장"}
+          </Button>
+          <Button
             onClick={onPrintAll}
-            variant="default"
+            variant="outline"
             size="sm"
             disabled={records.length === 0}
             data-testid="button-print-all"
           >
             <Printer className="h-4 w-4 mr-1" />
-            전체 출력
+            전체 웹 인쇄
           </Button>
         </div>
       </CardHeader>
@@ -242,9 +255,7 @@ export default function AbsenceFormInput({
                       <Input
                         type="number"
                         min={1}
-                        //value={record.daysCount}
-                        //onChange={(e) => onUpdateRecord(record.id, "daysCount", parseInt(e.target.value) || 0)}
-                        value={record.daysCount || 1}
+                        value={record.daysCount}
                         onChange={(e) => {const value = parseInt(e.target.value); onUpdateRecord(record.id, "daysCount", value >= 1 ? value : 1);}}
                         className="text-center"
                         placeholder="일수"

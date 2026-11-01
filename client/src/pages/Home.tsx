@@ -5,6 +5,7 @@ import PreviewModal from "@/components/PreviewModal";
 import SickAbsenceForm from "@/components/SickAbsenceForm";
 import SpecialAbsenceForm from "@/components/SpecialAbsenceForm";
 import { useToast } from "@/hooks/use-toast";
+import { downloadHwpx } from "@/lib/hwpx";
 
 export default function Home() {
   const { toast } = useToast();
@@ -27,6 +28,20 @@ export default function Home() {
   const [printRecords, setPrintRecords] = useState<AbsenceRecord[]>([]);
   const [shouldPrint, setShouldPrint] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const handleDownload = async (selected: AbsenceRecord[]) => {
+    if (isDownloading) return;
+    setIsDownloading(true);
+    try {
+      await downloadHwpx(selected);
+      toast({ title: "원본 양식 파일 생성 완료", description: "내려받은 HWPX를 한글에서 열어 내용을 확인하고 인쇄해주세요. ZIP 파일은 먼저 압축을 풀어주세요." });
+    } catch (error) {
+      toast({ title: "파일 생성 실패", description: error instanceof Error ? error.message : "다시 시도해주세요.", variant: "destructive" });
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   useEffect(() => {
     if (shouldPrint && printRecords.length > 0) {
@@ -80,7 +95,7 @@ export default function Home() {
       reasonDetail: "",
       startDate: "",
       endDate: "",
-      daysCount: 0,
+      daysCount: 1,
       submitDate: today,
       teacherName: "",
     };
@@ -162,6 +177,10 @@ export default function Home() {
             <p className="text-muted-foreground text-sm">
               학생들의 결석 정보를 입력하고 결석신고서를 자동으로 생성하여 출력할 수 있습니다.
             </p>
+            <p className="text-sm mt-2">
+              학교 원본 양식으로 출력하려면 ‘원본 HWPX 저장’으로 파일을 내려받아 한글에서 열고 인쇄해주세요.
+              여러 건은 ZIP으로 저장됩니다. 웹 미리보기와 웹 인쇄는 원본 양식과 모양이 다를 수 있습니다.
+            </p>
           </div>
 
           <AbsenceFormInput
@@ -171,6 +190,8 @@ export default function Home() {
             onDeleteRecord={handleDeleteRecord}
             onPreview={handlePreview}
             onPrintAll={handlePrintAll}
+            onDownloadAll={() => handleDownload(records)}
+            isDownloading={isDownloading}
           />
 
           <PreviewModal
@@ -178,6 +199,8 @@ export default function Home() {
             onClose={handleClosePreview}
             record={previewRecord}
             onPrint={handlePrintSingle}
+            onDownload={() => previewRecord && handleDownload([previewRecord])}
+            isDownloading={isDownloading}
           />
         </main>
       </div>

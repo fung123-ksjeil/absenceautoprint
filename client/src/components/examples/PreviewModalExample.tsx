@@ -28,6 +28,8 @@ export default function PreviewModalExample() {
         onClose={() => setOpen(false)}
         record={mockRecord}
         onPrint={() => console.log("Print triggered")}
+        onDownload={() => console.log("Download triggered")}
+        isDownloading={false}
       />
     </div>
   );
