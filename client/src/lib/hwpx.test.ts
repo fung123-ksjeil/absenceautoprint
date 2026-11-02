@@ -25,29 +25,44 @@ for (const kind of ["sick", "special"]) {
     }
     assert.equal(new DataView(bytes.buffer, bytes.byteOffset).getUint16(8, true), 0, "mimetype stored uncompressed");
     const xml = strFromU8(output["Contents/section0.xml"]);
-    for (const value of [input.studentName, input.studentId, input.reasonDetail, input.teacherName, "2026년 11월 1일", "2026년 11월 2일"]) {
+    const cacheCount = (text: string) => (text.match(/<hp:linesegarray>/g) ?? []).length;
+    assert.equal(cacheCount(strFromU8(original["Contents/section0.xml"])) - cacheCount(xml), 5,
+      "invalidate only the five edited paragraphs, preserving nested memo layout");
+    const gap = kind === "sick" ? " " : "   ";
+    for (const value of [input.studentName, input.studentId, input.reasonDetail, input.teacherName, `2026년${gap}11월${gap}1일`, `2026년${gap}11월${gap}2일`]) {
       assert.ok(xml.includes(value), value);
       assert.ok(strFromU8(output["Preview/PrvText.txt"]).includes(value), `preview: ${value}`);
     }
-    assert.ok(xml.includes(kind === "sick" ? "2026. 11. 3." : "2026년 11월 3일"));
-    assert.ok(xml.includes(kind === "sick" ? "( 2 )일간" : "( 2 일간)"));
+    assert.ok(xml.includes(kind === "sick" ? "2026.  11 .  3  . " : "2026년    11월   3일"));
+    assert.ok(xml.includes(kind === "sick" ? "(2)일간" : "(  2일간)"));
     const tags = (text: string) => text.replace(/<hp:linesegarray\b[^>]*>[\s\S]*?<\/hp:linesegarray>/g, "").replace(/<hp:t>[\s\S]*?<\/hp:t>/g, "<hp:t/>");
     assert.equal(tags(xml), tags(strFromU8(original["Contents/section0.xml"])), "all styles, tables, paragraph properties preserved");
     if (kind === "special") {
-      assert.ok(xml.includes("제32조 ( 12 )항"));
+      assert.ok(xml.includes("<hp:t>학업성적관리규정 (</hp:t>"));
+      assert.ok(xml.includes("<hp:t>  12  </hp:t>"));
+      assert.ok(xml.includes("<hp:t>)번</hp:t>"));
       const regulation = (s: string) => s.slice(s.indexOf("※ 학업성적관리규정"));
       assert.equal(regulation(xml), regulation(strFromU8(original["Contents/section0.xml"])));
     }
   });
 }
 
-test("escape XML metacharacters and do not reprocess inserted text", () => {
+test("escape XML metacharacters and do not reprocess inserted placeholders", () => {
   const bytes = fillHwpx(readFileSync("client/public/templates/special.hwpx"), {
-    ...record, reasonCode: "6", studentName: "김<&>\"'", reasonDetail: "년   월  일 & <사유>",
+    ...record, reasonCode: "6", studentName: "김<&>\"'", reasonDetail: "{{studentName}} & <사유>",
   });
   const xml = strFromU8(unzipSync(bytes)["Contents/section0.xml"]);
   assert.ok(xml.includes("김&lt;&amp;&gt;&quot;&apos;"));
-  assert.ok(xml.includes("년   월  일 &amp; &lt;사유&gt;"));
+  assert.ok(xml.includes("{{studentName}} &amp; &lt;사유&gt;"));
+});
+
+test("all special reason codes fill the styled number run without changing memo guidance", () => {
+  const template = readFileSync("client/public/templates/special.hwpx");
+  for (let code = 1; code <= 13; code++) {
+    const xml = strFromU8(unzipSync(fillHwpx(template, { ...record, reasonCode: String(code) }))["Contents/section0.xml"]);
+    assert.ok(xml.includes(`<hp:t>  ${code}  </hp:t>`));
+    assert.ok(xml.includes("생리통: 12번"), "keep original memo guidance regardless of selected reason");
+  }
 });
 
 test("reject invalid data and template mismatch", () => {

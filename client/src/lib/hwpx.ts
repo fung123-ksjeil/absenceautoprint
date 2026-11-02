@@ -11,9 +11,9 @@ function dateParts(value: string): [number, number, number] {
   return [year, month, day];
 }
 
-function koreanDate(value: string) {
+function koreanDate(value: string, spacing = " ") {
   const [year, month, day] = dateParts(value);
-  return `${year}년 ${month}월 ${day}일`;
+  return `${year}년${spacing}${month}월${spacing}${day}일`;
 }
 
 export function validateHwpxRecord(record: AbsenceRecord) {
@@ -43,42 +43,58 @@ export function fillHwpx(template: Uint8Array, record: AbsenceRecord): Uint8Arra
   }
   let xml = strFromU8(files[section]);
   let preview = strFromU8(files["Preview/PrvText.txt"] ?? new Uint8Array());
-  const replacements: [string, string][] = record.reasonCode === "0" ? [
-    ["      학번:", `      학번: ${record.studentId}`],
-    ["                                       성명: ", `                                       성명: ${record.studentName}`],
-    ["위 본인은    년    월    일부터     년     월     일까지 (    )일간 (      )으로 인하여 결석하였기에 이를 확인하고 결석계를 제출합니다.",
-      `위 본인은 ${koreanDate(record.startDate)}부터 ${koreanDate(record.endDate)}까지 ( ${record.daysCount} )일간 ( ${record.reasonDetail} )으로 인하여 결석하였기에 이를 확인하고 결석계를 제출합니다.`],
-    ["                                    .   .    . ", `                                    ${dateParts(record.submitDate).join(". ")}.`],
-    ["                               담 임 :          (인)", `                               담 임 : ${record.teacherName} (인)`],
-  ] : [
-    ["학번 : ", `학번 : ${record.studentId}`],
-    ["                                                성명 : ", `                                                성명 : ${record.studentName}`],
-    ["위 학생은 (  )으로 결석하였기에 ", `위 학생은 ( ${record.reasonDetail} )으로 결석하였기에 `],
-    ["학교성적관리규정 제32조 (  )항", `학교성적관리규정 제32조 ( ${record.reasonCode} )항`],
-    ["에 의거 서류를 첨부하여        년   월   일부터    년   월   일까지 (  일간) 출석으로 처리하고자 합니다.",
-      `에 의거 서류를 첨부하여 ${koreanDate(record.startDate)}부터 ${koreanDate(record.endDate)}까지 ( ${record.daysCount} 일간) 출석으로 처리하고자 합니다.`],
-    ["년   월  일", koreanDate(record.submitDate)],
-    ["      담임       (인) ", `      담임 ${record.teacherName} (인) `],
-  ];
-  // Match each paragraph separately so only changed paragraphs lose stale line-layout caches.
-  // Hancom recalculates these lines when opening the filled document.
-  const counts = replacements.map(() => 0);
-  xml = xml.replace(/<hp:p\b[^>]*>[\s\S]*?<\/hp:p>/g, paragraph => {
-    let changed = false;
-    const updated = paragraph.replace(/<hp:t>([\s\S]*?)<\/hp:t>/g, (node, text: string) => {
-      const index = replacements.findIndex(([original]) => escapeXml(original) === text);
-      if (index < 0) return node;
-      counts[index]++;
-      changed = true;
-      return `<hp:t>${escapeXml(replacements[index][1])}</hp:t>`;
-    });
-    return changed ? updated.replace(/<hp:linesegarray\b[^>]*>[\s\S]*?<\/hp:linesegarray>/g, "") : updated;
+  const isSick = record.reasonCode === "0";
+  const [submitYear, submitMonth, submitDay] = dateParts(record.submitDate);
+  const values: Record<string, string> = {
+    studentId: record.studentId,
+    studentName: record.studentName,
+    reasonDetail: record.reasonDetail,
+    reasonCode: record.reasonCode,
+    startDate: koreanDate(record.startDate, isSick ? " " : "   "),
+    endDate: koreanDate(record.endDate, isSick ? " " : "   "),
+    daysCount: String(record.daysCount),
+    submitDate: `${submitYear}년    ${submitMonth}월   ${submitDay}일`,
+    submitYear: String(submitYear),
+    submitMonth: String(submitMonth),
+    submitDay: String(submitDay),
+    teacherName: record.teacherName,
+  };
+  const expected = ["studentId", "studentName", "reasonDetail", "startDate", "endDate", "daysCount", "teacherName",
+    ...(isSick ? ["submitYear", "submitMonth", "submitDay"] : ["reasonCode", "submitDate"])];
+  const counts: Record<string, number> = {};
+  const fillText = (text: string, escape: boolean) => text.replace(/\{\{([A-Za-z]+)\}\}/g, (_token, key: string) => {
+    if (!expected.includes(key)) throw new Error("원본 양식의 입력 위치가 일치하지 않습니다. 양식 파일을 확인해주세요.");
+    if (escape) counts[key] = (counts[key] ?? 0) + 1;
+    return escape ? escapeXml(values[key]) : values[key];
   });
-  if (counts.some(count => count !== 1)) throw new Error("원본 양식의 입력 위치가 일치하지 않습니다. 양식 파일을 확인해주세요.");
-  // One pass prevents a user's text from being interpreted as another replacement target.
-  const previewTargets = new Map(replacements);
-  const pattern = new RegExp(replacements.map(([text]) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"), "g");
-  preview = preview.replace(pattern, text => previewTargets.get(text)!);
+  // Nested paragraphs occur inside the special form's guidance field.
+  // Edit raw XML ranges so their controls and text-run styling remain intact.
+  const edits: { start: number; end: number; value: string }[] = [];
+  const paragraphs: { changed: boolean; caches: { start: number; end: number }[] }[] = [];
+  const tokens = /<hp:p\b[^>]*>|<\/hp:p>|<hp:t>[\s\S]*?<\/hp:t>|<hp:linesegarray\b[^>]*>[\s\S]*?<\/hp:linesegarray>/g;
+  let match: RegExpExecArray | null;
+  while ((match = tokens.exec(xml)) !== null) {
+    const token = match[0];
+    const range = { start: match.index, end: tokens.lastIndex };
+    if (token.startsWith("<hp:p")) {
+      paragraphs.push({ changed: false, caches: [] });
+    } else if (token === "</hp:p>") {
+      const paragraph = paragraphs.pop();
+      if (paragraph?.changed) paragraph.caches.forEach(cache => edits.push({ ...cache, value: "" }));
+    } else if (token.startsWith("<hp:linesegarray")) {
+      paragraphs[paragraphs.length - 1]?.caches.push(range);
+    } else if (/\{\{[A-Za-z]+\}\}/.test(token)) {
+      edits.push({ ...range, value: `<hp:t>${fillText(token.slice(6, -7), true)}</hp:t>` });
+      const paragraph = paragraphs[paragraphs.length - 1];
+      if (paragraph) paragraph.changed = true;
+    }
+  }
+  edits.sort((a, b) => b.start - a.start).forEach(edit => {
+    xml = xml.slice(0, edit.start) + edit.value + xml.slice(edit.end);
+  });
+  if (expected.some(key => counts[key] !== 1)) throw new Error("원본 양식의 입력 위치가 일치하지 않습니다. 양식 파일을 확인해주세요.");
+  // Replace once: user input containing placeholder-like text is never processed again.
+  preview = fillText(preview, false);
   files[section] = strToU8(xml);
   files["Preview/PrvText.txt"] = strToU8(preview);
   // HWPX requires the mimetype entry first and uncompressed.
