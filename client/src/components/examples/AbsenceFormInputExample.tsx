@@ -60,10 +60,6 @@ export default function AbsenceFormInputExample() {
     console.log("Preview triggered for:", record);
   };
 
-  const handlePrintAll = () => {
-    console.log("Print all triggered");
-  };
-
   return (
     <AbsenceFormInput
       records={records}
@@ -71,7 +67,6 @@ export default function AbsenceFormInputExample() {
       onUpdateRecord={handleUpdateRecord}
       onDeleteRecord={handleDeleteRecord}
       onPreview={handlePreview}
-      onPrintAll={handlePrintAll}
       onDownloadAll={() => console.log("Download all triggered")}
       isDownloading={false}
     />

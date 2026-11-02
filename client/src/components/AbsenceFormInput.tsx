@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { Plus, Trash2, Eye, Printer, CalendarIcon, Download } from "lucide-react";
+import { Plus, Trash2, Eye, CalendarIcon, Download } from "lucide-react";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 
@@ -28,7 +28,6 @@ interface AbsenceFormInputProps {
   onUpdateRecord: (id: string, field: keyof AbsenceRecord, value: string | number) => void;
   onDeleteRecord: (id: string) => void;
   onPreview: (record: AbsenceRecord) => void;
-  onPrintAll: () => void;
   onDownloadAll: () => void;
   isDownloading: boolean;
 }
@@ -102,7 +101,6 @@ export default function AbsenceFormInput({
   onUpdateRecord,
   onDeleteRecord,
   onPreview,
-  onPrintAll,
   onDownloadAll,
   isDownloading,
 }: AbsenceFormInputProps) {
@@ -126,17 +124,7 @@ export default function AbsenceFormInput({
             data-testid="button-download-all"
           >
             <Download className="h-4 w-4 mr-1" />
-            {isDownloading ? "생성 중…" : "전체 원본 HWPX 저장"}
-          </Button>
-          <Button
-            onClick={onPrintAll}
-            variant="outline"
-            size="sm"
-            disabled={records.length === 0}
-            data-testid="button-print-all"
-          >
-            <Printer className="h-4 w-4 mr-1" />
-            전체 웹 인쇄
+            {isDownloading ? "생성 중…" : "전체 결석신고서 다운로드"}
           </Button>
         </div>
       </CardHeader>

@@ -151,22 +151,6 @@ export default function Home() {
     }
   };
 
-  const handlePrintAll = () => {
-    if (records.length === 0) {
-      toast({
-        title: "출력할 데이터 없음",
-        description: "먼저 결석 정보를 입력해주세요.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (!validateRecords(records)) return;
-
-    setPrintRecords(records);
-    setShouldPrint(true);
-  };
-
   return (
     <>
       <div className="min-h-screen bg-background no-print">
@@ -177,10 +161,6 @@ export default function Home() {
             <p className="text-muted-foreground text-sm">
               학생들의 결석 정보를 입력하고 결석신고서를 자동으로 생성하여 출력할 수 있습니다.
             </p>
-            <p className="text-sm mt-2">
-              학교 2026년 원본 양식으로 출력하려면 ‘원본 HWPX 저장’으로 파일을 내려받아 한글에서 열고 인쇄해주세요.
-              여러 건은 ZIP으로 저장됩니다. 웹 미리보기와 웹 인쇄는 원본 양식과 모양이 다를 수 있습니다.
-            </p>
           </div>
 
           <AbsenceFormInput
@@ -189,7 +169,6 @@ export default function Home() {
             onUpdateRecord={handleUpdateRecord}
             onDeleteRecord={handleDeleteRecord}
             onPreview={handlePreview}
-            onPrintAll={handlePrintAll}
             onDownloadAll={() => handleDownload(records)}
             isDownloading={isDownloading}
           />
